@@ -1,0 +1,10 @@
+/client/node_modules/
+/client/public/build/
+
+.DS_Store
+
+auth.js
+auth.py
+hibp_headers.py
+
+__pycache__
