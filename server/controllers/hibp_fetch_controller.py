@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, redirect, render_template, request
+from flask import Blueprint, Flask
 import sys
 import http.client
 from services.hibp_headers import headers

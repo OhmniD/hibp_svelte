@@ -1,10 +1,10 @@
 <script>
 import { onMount } from 'svelte';
 
-	export let name;
+	let emails = [];
 
-	async function hibpQuery() {
-		let response = await fetch('http://localhost:8000/hibp_fetch/account-exists@hibp-integration-tests.com');
+	async function hibpQuery(email) {
+		let response = await fetch(`http://localhost:8000/hibp_fetch/account-exists@hibp-integration-tests.com/${email}`);
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
@@ -16,17 +16,33 @@ import { onMount } from 'svelte';
 		)
 	}
 
+	async function getEmails() {
+		let response = await fetch('http://localhost:8000/emails');
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`)
+		}
+		emails = await response.json()
+	}
+
 
 
 	onMount(() => {
-		hibpQuery()
+		getEmails()
 	})
 	
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
+	<h1>Hello!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<div>
+		{#each emails as email}
+		<p>{email.email}</p>
+		{:else}
+		<p>Nothing to see here yet</p>
+		{/each}
+	</div>
 
 </main>
 
