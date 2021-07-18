@@ -9,7 +9,7 @@ hibp_fetch_blueprint = Blueprint("hibp_fetch", __name__)
 def hibp_info(email):
     conn = http.client.HTTPSConnection("haveibeenpwned.com")
     payload = ''
-    conn.request("GET", "/api/v3/breachedaccount/" + email, payload, headers)
+    conn.request("GET", f"/api/v3/breachedaccount/{email}/?truncateResponse=false", payload, headers)
     res = conn.getresponse()
     data = res.read()
     return data
