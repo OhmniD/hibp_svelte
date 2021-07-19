@@ -1,19 +1,34 @@
 <script>
 import { onMount } from 'svelte';
 
+	import Emails from '../components/Email.svelte'
+
 	let emails = [];
 
-	async function hibpQuery(email) {
-		let response = await fetch(`http://localhost:8000/hibp_fetch/account-exists@hibp-integration-tests.com/${email}`);
+	async function updateNumOfBreaches(email) {
+		let response = await fetch(`http://localhost:8000/hibp_fetch/no_detail/${email.email}`)
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
+		const data = await response.json()
 
-		let data = await response.json()
-		let output = await data.map(data =>
-		console.log(data)
-		)
+		if (data.length === 0) {
+			email.num_of_breaches = 0
+		}  else {
+			email.num_of_breaches = data.length
+		}
+
+		
+		
+		let update = await fetch(`http://localhost:8000/emails/${email.id}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(email)
+		})
+		return update.json()
 	}
 
 	async function getEmails() {
@@ -23,6 +38,8 @@ import { onMount } from 'svelte';
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
 		emails = await response.json()
+
+		emails.map(email => updateNumOfBreaches(email))
 	}
 
 
@@ -34,15 +51,9 @@ import { onMount } from 'svelte';
 </script>
 
 <main>
-	<h1>Hello!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<div>
-		{#each emails as email}
-		<p>{email.email}</p>
-		{:else}
-		<p>Nothing to see here yet</p>
-		{/each}
-	</div>
+	<!-- <h1>Hello!</h1>
+	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p> -->
+	<Emails emails={emails}/>
 
 </main>
 

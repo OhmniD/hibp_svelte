@@ -25,3 +25,8 @@ def select_all():
         emails.append(vars(email))
 
     return emails
+
+def update(email):
+    sql = "UPDATE emails SET (email, num_of_breaches) = (%s, %s) WHERE id = %s"
+    values = [email.email, email.num_of_breaches, email.id]
+    run_sql(sql, values)

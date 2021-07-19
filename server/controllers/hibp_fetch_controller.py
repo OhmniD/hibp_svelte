@@ -13,3 +13,12 @@ def hibp_info(email):
     res = conn.getresponse()
     data = res.read()
     return data
+
+@hibp_fetch_blueprint.route("/hibp_fetch/no_detail/<email>", methods=["GET"])
+def hibp_info_no_detail(email):
+    conn = http.client.HTTPSConnection("haveibeenpwned.com")
+    payload = ''
+    conn.request("GET", f"/api/v3/breachedaccount/{email}", payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    return data
