@@ -5,10 +5,13 @@
 
 <section>
 	<ul class="email-list">
-		{#each emails as {email, num_of_breaches, id}}
+		{#each emails as email}
 		<li class="email-list-item">
-		<p>{email} - {num_of_breaches} breaches</p>
+		<h3>{email.email}</h3>
+		<p>{email.num_of_breaches} breaches</p>
 		<HibpData email={email}/>
+		
+		<a href="http://localhost:8000/emails/{email.id}/delete"><button>Delete</button></a>
 		</li>
 		{:else}
 		<p>Nothing to see here yet</p>

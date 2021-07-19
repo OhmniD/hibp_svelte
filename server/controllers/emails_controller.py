@@ -21,7 +21,7 @@ def update_email(id):
 
     email_repository.update(email_record)
 
-    return "Success"
+    return redirect('http://localhost:5000/', 301)
 
 @emails_blueprint.route("/emails", methods=["POST"])
 def create_email():
@@ -32,4 +32,9 @@ def create_email():
 
     email_repository.save(email_record)
 
-    return redirect('http://localhost:5000')
+    return redirect('http://localhost:5000/', 301)
+
+@emails_blueprint.route("/emails/<id>/delete", methods=["GET"])
+def delete_email(id):
+    email_repository.delete(id)
+    return redirect('http://localhost:5000/', 301)

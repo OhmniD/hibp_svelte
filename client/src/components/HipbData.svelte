@@ -1,13 +1,19 @@
 <script>
 import { onMount } from "svelte";
+import Bottleneck from "bottleneck"
 
 
     export let email
 
     let hipbdata = []
 
+    const limiter = new Bottleneck({
+        maxConcurrent: 1,
+        minTime: 333
+    })
+
     async function hibpQuery(email) {
-		setTimeOut(let response = await fetch(`http://localhost:8000/hibp_fetch/${email}`), Math.random() * 1600);
+		let response = await limiter.schedule(() => fetch(`http://localhost:8000/hibp_fetch/${email.email}`));
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
@@ -16,6 +22,21 @@ import { onMount } from "svelte";
 		let data = await response.json()
 
         hipbdata = data;
+
+        if (data.length === 0) {
+			email.num_of_breaches = 0
+		}  else {
+			email.num_of_breaches = data.length
+		}
+
+        let update = await fetch(`http://localhost:8000/emails/${email.id}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(email)
+		})
+		// return update.json()
 
 	}
 

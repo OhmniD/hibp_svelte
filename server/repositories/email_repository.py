@@ -32,3 +32,8 @@ def update(email):
     sql = "UPDATE emails SET (email, num_of_breaches) = (%s, %s) WHERE id = %s"
     values = [email.email, email.num_of_breaches, email.id]
     run_sql(sql, values)
+
+def delete(id):
+    sql = "DELETE FROM emails WHERE id = %s"
+    values = [id]
+    run_sql(sql, values)
