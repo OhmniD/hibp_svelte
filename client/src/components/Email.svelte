@@ -4,7 +4,7 @@
 </script>
 
 <section>
-	<ul>
+	<ul class="email-list">
 		{#each emails as {email, num_of_breaches, id}}
 		<li class="email-list-item">
 		<p>{email} - {num_of_breaches} breaches</p>
@@ -18,9 +18,25 @@
 </section>
 
 <style>
+	.email-list {
+	list-style-type: none;
+	display:grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	flex-wrap: wrap;
+	margin: 1rem;
+	grid-gap: 1rem;
+	}
+
 	.email-list-item {
-		border: solid 1px black;
-		list-style-type: none;
-		margin: 1rem;
+	color: #f3f3f3;
+	list-style-type: none;
+	height: 250px;
+	width: 400px;
+	min-width: 150px;
+	padding: 1.5rem;
+	border-radius: 16px;
+	background-color: #1d1f24;
+	box-shadow: -1rem 2rem 3rem #000;
+	transition: 0.2s;
 	}
 </style>

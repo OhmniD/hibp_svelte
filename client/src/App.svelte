@@ -64,5 +64,18 @@ import { onMount } from 'svelte';
 </main>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap');
 
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	
+	main {
+	background-color:#282c34;
+	color: #f3f3f3;
+	font-family:"Roboto";
+	min-height: 100vh;
+	}
+	
 </style>
