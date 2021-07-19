@@ -7,7 +7,7 @@ import { onMount } from "svelte";
     let hipbdata = []
 
     async function hibpQuery(email) {
-		let response = await fetch(`http://localhost:8000/hibp_fetch/${email}`);
+		setTimeOut(let response = await fetch(`http://localhost:8000/hibp_fetch/${email}`), Math.random() * 1600);
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)

@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, request, json, jsonify
+from flask import Blueprint, Flask, request, json, jsonify, redirect
 import sys
 
 from models.email import Email
@@ -32,4 +32,4 @@ def create_email():
 
     email_repository.save(email_record)
 
-    return "Success"
+    return redirect('http://localhost:5000')

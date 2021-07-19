@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, Response
 from db.run_sql import run_sql
 import sys
 import json
@@ -8,7 +8,7 @@ from controllers.hibp_fetch_controller import hibp_info_no_detail
 
 def save(email):
     breaches = hibp_info_no_detail(email.email)
-    parsed = json.loads(breaches)
+    parsed = json.loads(breaches.data)
     email.num_of_breaches = len(parsed)
     sql = "INSERT INTO emails(email, num_of_breaches) VALUES (%s, %s) RETURNING id"
     values = [email.email, email.num_of_breaches]
