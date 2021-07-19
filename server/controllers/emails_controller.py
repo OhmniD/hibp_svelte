@@ -22,3 +22,14 @@ def update_email(id):
     email_repository.update(email_record)
 
     return "Success"
+
+@emails_blueprint.route("/emails", methods=["POST"])
+def create_email():
+    form_data = request.form
+
+    email = form_data['email']
+    email_record = Email(email)
+
+    email_repository.save(email_record)
+
+    return "Success"

@@ -1,7 +1,8 @@
 <script>
 import { onMount } from 'svelte';
 
-	import Emails from '../components/Email.svelte'
+	import Emails from './components/Email.svelte'
+	import Form from './components/Form.svelte'
 
 	let emails = [];
 
@@ -11,24 +12,30 @@ import { onMount } from 'svelte';
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
-		const data = await response.json()
 
-		if (data.length === 0) {
-			email.num_of_breaches = 0
-		}  else {
-			email.num_of_breaches = data.length
+		if (await response.json != undefined) {
+			const data = await response.json()
+		} else {
+			return console.log("Thingy")
 		}
+		
+		
 
-		
-		
-		let update = await fetch(`http://localhost:8000/emails/${email.id}`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(email)
-		})
-		return update.json()
+		// if (data.length === 0) {
+		// 	email.num_of_breaches = 0
+		// }  else {
+		// 	email.num_of_breaches = data.length
+		// }
+
+	
+		// let update = await fetch(`http://localhost:8000/emails/${email.id}`, {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json'
+		// 	},
+		// 	body: JSON.stringify(email)
+		// })
+		// return update.json()
 	}
 
 	async function getEmails() {
@@ -51,30 +58,11 @@ import { onMount } from 'svelte';
 </script>
 
 <main>
-	<!-- <h1>Hello!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p> -->
+	<Form />
 	<Emails emails={emails}/>
 
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>

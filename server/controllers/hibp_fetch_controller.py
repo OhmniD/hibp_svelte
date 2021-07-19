@@ -11,6 +11,7 @@ def hibp_info(email):
     payload = ''
     conn.request("GET", f"/api/v3/breachedaccount/{email}/?truncateResponse=false", payload, headers)
     res = conn.getresponse()
+    print(res.status)
     data = res.read()
     return data
 
