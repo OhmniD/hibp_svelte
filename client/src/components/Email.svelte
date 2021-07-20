@@ -1,8 +1,6 @@
 <script>
     export let emails
     import HibpData from './HipbData.svelte'
-	import { onMount } from 'svelte';
-
 </script>
 
 <section>
@@ -15,7 +13,7 @@
 		<a href="http://localhost:8000/emails/{email.id}/delete"><button>Delete</button></a>
 		</li>
 		{:else}
-		<p>Nothing to see here yet</p>
+		<p>Loading...</p>
 		{/each}
 	</ul>
 	

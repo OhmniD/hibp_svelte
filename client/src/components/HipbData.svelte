@@ -6,7 +6,7 @@ import BreachInfo from './BreachInfo.svelte'
 
     export let email
 
-    let hipbdata = []
+    let hibpdata = []
 
     const limiter = new Bottleneck({
         minTime: 333,
@@ -29,7 +29,7 @@ import BreachInfo from './BreachInfo.svelte'
 
 		let data = await response.json()
 
-        hipbdata = data;
+        hibpdata = data;
 
         if (data.length === 0) {
 			email.num_of_breaches = 0
@@ -54,10 +54,48 @@ import BreachInfo from './BreachInfo.svelte'
 
 </script>
 
+{#if hibpdata.length === 0 && email.num_of_breaches !== 0}
+<div class="loader"></div>
+{:else}
 <ul>
-    {#each hipbdata as breach}
+    {#each hibpdata as breach}
     <li>
-        <p on:click={showBreachInfo(breach)}>{breach.Name} - Breached {breach.BreachDate}</p>
+        <p class="breach" on:click={showBreachInfo(breach)}>{breach.Name} (Breached - {breach.BreachDate})</p>
     </li>
     {/each}
 </ul>
+{/if}
+
+<style>
+    .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+li {
+    list-style-type: none;
+}
+
+.breach {
+    transition: 0.15s ease-in-out;
+}
+.breach:hover {
+    transform: scale(1.05);
+    transition: 0.15s ease-in-out;
+    background: linear-gradient(90deg,dodgerblue,#e52e71);
+    cursor: pointer;
+    text-shadow: none;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+</style>
+

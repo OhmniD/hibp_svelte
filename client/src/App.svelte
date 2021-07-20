@@ -6,6 +6,7 @@ import Modal from 'svelte-simple-modal';
 	import Form from './components/Form.svelte'
 
 	let emails = [];
+	let total_breaches = 0
 
 	async function getEmails() {
 		let response = await fetch('http://localhost:8000/emails');
@@ -14,6 +15,8 @@ import Modal from 'svelte-simple-modal';
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
 		emails = await response.json()
+
+		emails.map(email => total_breaches += email.num_of_breaches)
 	}
 
 
@@ -26,6 +29,7 @@ import Modal from 'svelte-simple-modal';
 
 <main>
 	<Form />
+	<h3>Total breaches: {total_breaches}</h3>
 	<Modal>
 		<Emails emails={emails}/>
 	</Modal>
