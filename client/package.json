@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "bottleneck": "^2.19.5",
-    "sirv-cli": "^1.0.0"
+    "sirv-cli": "^1.0.0",
+    "svelte-simple-modal": "^1.0.0"
   }
 }

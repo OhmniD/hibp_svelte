@@ -1,5 +1,6 @@
 <script>
 import { onMount } from 'svelte';
+import Modal from 'svelte-simple-modal';
 
 	import Emails from './components/Email.svelte'
 	import Form from './components/Form.svelte'
@@ -25,7 +26,10 @@ import { onMount } from 'svelte';
 
 <main>
 	<Form />
-	<Emails emails={emails}/>
+	<Modal>
+		<Emails emails={emails}/>
+	</Modal>
+	
 
 </main>
 

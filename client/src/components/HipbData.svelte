@@ -1,6 +1,7 @@
 <script>
-import { onMount } from "svelte";
+import { getContext, onMount } from "svelte";
 import Bottleneck from "bottleneck"
+import BreachInfo from './BreachInfo.svelte'
 
 
     export let email
@@ -11,6 +12,12 @@ import Bottleneck from "bottleneck"
         maxConcurrent: 1,
         minTime: 333
     })
+
+    const { open } = getContext('simple-modal');
+
+    const showBreachInfo = (breach) => {
+        open(BreachInfo, { message: breach.Description })
+    }
 
     async function hibpQuery(email) {
 		let response = await limiter.schedule(() => fetch(`http://localhost:8000/hibp_fetch/${email.email}`));
@@ -28,6 +35,8 @@ import Bottleneck from "bottleneck"
 		}  else {
 			email.num_of_breaches = data.length
 		}
+
+        // Put in a get here to check if the number of breaches retrieved === number of breaches in database - only update if there has been a change/increase
 
         let update = await fetch(`http://localhost:8000/emails/${email.id}`, {
 			method: 'POST',
@@ -49,10 +58,7 @@ import Bottleneck from "bottleneck"
 <ul>
     {#each hipbdata as breach}
     <li>
-    <p>{breach.Name} - Breached {breach.BreachDate}</p>
-    <!-- <p>{breach.Description}</p> -->
-
-    <!-- <img src={breach.LogoPath}> -->
+        <p on:click={showBreachInfo(breach)}>{breach.Name} - Breached {breach.BreachDate}</p>
     </li>
     {/each}
 </ul>
