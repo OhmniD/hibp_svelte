@@ -9,14 +9,15 @@ import BreachInfo from './BreachInfo.svelte'
     let hipbdata = []
 
     const limiter = new Bottleneck({
-        maxConcurrent: 1,
-        minTime: 333
+        minTime: 333,
+        maxConcurrent: 1
+        
     })
 
     const { open } = getContext('simple-modal');
 
     const showBreachInfo = (breach) => {
-        open(BreachInfo, { message: breach.Description })
+        open(BreachInfo, { breach })
     }
 
     async function hibpQuery(email) {
@@ -45,8 +46,6 @@ import BreachInfo from './BreachInfo.svelte'
 			},
 			body: JSON.stringify(email)
 		})
-		// return update.json()
-
 	}
 
     onMount(() => { 

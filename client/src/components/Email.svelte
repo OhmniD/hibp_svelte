@@ -3,11 +3,9 @@
     import HibpData from './HipbData.svelte'
 	import { onMount } from 'svelte';
 
-	let total_breaches = 0
 </script>
 
 <section>
-	<p>Total Breaches: {total_breaches}</p>
 	<ul class="email-list">
 		{#each emails as email}
 		<li class="email-list-item">

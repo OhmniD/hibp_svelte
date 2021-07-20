@@ -8,8 +8,11 @@ from controllers.hibp_fetch_controller import hibp_info_no_detail
 
 def save(email):
     breaches = hibp_info_no_detail(email.email)
-    parsed = json.loads(breaches.data)
-    email.num_of_breaches = len(parsed)
+    if breaches.status_code == 200:
+        parsed = json.loads(breaches.data)
+        email.num_of_breaches = len(parsed)
+    else:
+        email.num_of_breaches = 0
     sql = "INSERT INTO emails(email, num_of_breaches) VALUES (%s, %s) RETURNING id"
     values = [email.email, email.num_of_breaches]
     result = run_sql(sql, values)
