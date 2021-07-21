@@ -2,7 +2,7 @@
     export let emails
 	import { element, prevent_default } from 'svelte/internal'
     import HibpData from './HipbData.svelte'
-	import { emailsStore } from '../stores/stores.js'
+	import { emailsStore, totalBreachesStore } from '../stores/stores.js'
 
 	const handleDeleteClick = async (email) => {
 			// emails.forEach(element, i => {
@@ -19,6 +19,8 @@
 					emails.splice(i, 1)
 				}
 			}
+
+			totalBreachesStore.update(n => n - email.num_of_breaches);
 
 			emailsStore.set([...emails])
 

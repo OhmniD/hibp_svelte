@@ -37,4 +37,4 @@ def create_email():
 @emails_blueprint.route("/emails/<id>/delete", methods=["GET"])
 def delete_email(id):
     email_repository.delete(id)
-    return redirect('http://localhost:5000', 301)
+    return "E-mail deleted"

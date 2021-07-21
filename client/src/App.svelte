@@ -1,7 +1,7 @@
 <script>
 import { onMount } from 'svelte';
 import Modal from 'svelte-simple-modal';
-import { emailsStore } from './stores/stores.js'
+import { emailsStore, totalBreachesStore } from './stores/stores.js'
 
 	import Emails from './components/Email.svelte'
 	import Form from './components/Form.svelte'
@@ -26,6 +26,10 @@ import { emailsStore } from './stores/stores.js'
 
 	emailsStore.subscribe(value => {
 		emails = value;
+	});
+
+	totalBreachesStore.subscribe(value => {
+		total_breaches = value;
 	});
 
 	onMount(() => {

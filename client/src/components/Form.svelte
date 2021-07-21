@@ -1,5 +1,5 @@
 <script>
-    import { emailsStore } from '../stores/stores.js'
+    import { emailsStore, totalBreachesStore } from '../stores/stores.js'
 
     let email = ""
 
@@ -13,6 +13,7 @@
 		})
         const data = await addEmail.json()
         emailsStore.update(emails => [...emails, data])
+        totalBreachesStore.update(n => n + data.num_of_breaches);
         email = ""
     };
 
