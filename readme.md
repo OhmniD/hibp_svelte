@@ -8,7 +8,7 @@ It was built using Svelte for the front end, and Flask with PostgreSQL for the b
 
 ### Usage
 
-* ###### Server
+* #### Server
 * Obtain an API key from https://www.haveibeenpwned.com
 * Install Python 3, PostgreSQL and pip
 * Install flask - `pip3 install flask`
@@ -20,7 +20,7 @@ It was built using Svelte for the front end, and Flask with PostgreSQL for the b
 * Navigate to `./server` and execute `flask run` to start the server
 * Verify it is accesible in a browser by going to `http://localhost:8000/emails`
 
-* ###### Client
+* #### Client
 * Install Node.js and NPM
 * In your terminal, navigate to `./client` and run `npm install`
 * Run `npm run dev` to start the client
