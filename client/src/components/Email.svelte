@@ -3,6 +3,7 @@
 	import { element, prevent_default } from 'svelte/internal'
     import HibpData from './HipbData.svelte'
 	import { emailsStore, totalBreachesStore } from '../stores/stores.js'
+	import { fade } from 'svelte/transition'
 
 	const handleDeleteClick = async (email) => {
 			// emails.forEach(element, i => {
@@ -40,7 +41,7 @@
 <section>
 	<ul class="email-list">
 		{#each emails as email}
-		<li class="email-list-item">
+		<li transition:fade class="email-list-item">
 		<h3>{email.email}</h3>
 		<p>{email.num_of_breaches} breaches</p>
 		<HibpData email={email}/>

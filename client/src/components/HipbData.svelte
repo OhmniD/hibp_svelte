@@ -2,6 +2,7 @@
 import { getContext, onMount } from "svelte";
 import Bottleneck from "bottleneck"
 import BreachInfo from './BreachInfo.svelte'
+import { fade } from 'svelte/transition'
 
 
     export let email
@@ -55,9 +56,9 @@ import BreachInfo from './BreachInfo.svelte'
 </script>
 
 {#if hibpdata.length === 0 && email.num_of_breaches !== 0}
-<div class="loader"></div>
+<div transition:fade class="loader"></div>
 {:else}
-<ul>
+<ul transition:fade>
     {#each hibpdata as breach}
     <li>
         <p class="breach" on:click={showBreachInfo(breach)}>{breach.Name} (Breached - {breach.BreachDate})</p>
