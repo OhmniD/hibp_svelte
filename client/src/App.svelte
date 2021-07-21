@@ -19,7 +19,7 @@ import { emailsStore, totalBreachesStore } from './stores/stores.js'
 		emails = await response.json()
 
 		emails.map(email => total_breaches += email.num_of_breaches)
-
+		totalBreachesStore.set(total_breaches)
 		emailsStore.set(emails)
 	}
 
