@@ -42,10 +42,13 @@
 	<ul class="email-list">
 		{#each emails as email}
 		<li transition:fade class="email-list-item">
-		<h3>{email.email}</h3>
-		<p>{email.num_of_breaches} breaches</p>
+		<div class="email-and-delete">
+			<h3>{email.email}</h3>
+			<p class="delete-icon" on:click|preventDefault={handleDeleteClick(email)}>✖️</p>
+		</div>
+		<p class="num_of_breaches">{email.num_of_breaches} breaches</p>
 		<HibpData email={email}/>
-		<button on:click|preventDefault={handleDeleteClick(email)}>Delete</button>
+		
 		</li>
 		{:else}
 		<p>Add an e-mail address to get started.</p>
@@ -55,6 +58,14 @@
 </section>
 
 <style>
+	h3 {
+		font-family: "PT Sans";
+	}
+
+	p {
+		font-family: "Signika";
+	}
+
 	.email-list {
 	list-style-type: none;
 	display:grid;
@@ -75,5 +86,25 @@
 	background-color: #1d1f24;
 	box-shadow: -1rem 2rem 3rem #000;
 	transition: 0.2s;
+	}
+
+	.email-and-delete {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.num_of_breaches {
+		text-align: center;
+	}
+
+	.delete-icon {
+    transition: 0.15s ease-in-out;
+	padding-right: 1rem;
+	}
+	.delete-icon:hover {
+    transform: scale(1.3);
+    transition: 0.15s ease-in-out;
+    cursor: pointer;
 	}
 </style>

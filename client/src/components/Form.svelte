@@ -20,22 +20,29 @@
 </script>
 
 <div id="form-wrapper">
-    <h2>Add new e-mail address</h2>
-    
     <form>
-        <label for="email">Email Address:</label>
-        <input type="text" name="email" bind:value={email}>
-        <button on:click|preventDefault={handleFormSubmit}>Add Email</button>
+        <input type="text" name="email" bind:value={email} placeholder="Add an e-mail address">
+        <button on:click|preventDefault={handleFormSubmit}>Add</button>
     </form>
 </div>
 
 <style>
-    h2 {
-        margin:0;
-        padding-top: 2rem;
-    }
+
 
     #form-wrapper {
-        padding-left: 4rem;
+        padding-top: 0.75rem;
+        padding-right: 4rem;
+
+
+    }
+
+    input {
+        border-radius: 0.25rem;
+        width: 17rem;
+    }
+
+    button {
+        border-radius: 0.25rem;
+        margin-left: 1rem;
     }
 </style>

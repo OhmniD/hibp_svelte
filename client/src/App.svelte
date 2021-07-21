@@ -39,8 +39,14 @@ import { emailsStore, totalBreachesStore } from './stores/stores.js'
 </script>
 
 <main>
-	<Form />
-	<h3>Total breaches: {total_breaches}</h3>
+	<header>
+		<h1>H I B P </h1>
+		<Form />
+	</header>
+	<div id="total-breaches">
+		
+		<h2>Total Breaches: <strong>{total_breaches}</strong></h2>
+	</div>
 	<Modal>
 		<Emails bind:emails={emails}/>
 	</Modal>
@@ -49,11 +55,26 @@ import { emailsStore, totalBreachesStore } from './stores/stores.js'
 </main>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&family=Anton&family=Signika:wght@300&display=swap');
 
 	* {
 		margin: 0;
 		padding: 0;
+	}
+
+	header {
+	background-color: #3e4451;
+	background-image: linear-gradient(#3e4451, #282c34);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 4rem;
+	height: 4rem;
+	font-family: "PT Sans"
+	}
+
+	h2 {
+		font-family: "PT Sans";
 	}
 	
 	main {
@@ -61,6 +82,13 @@ import { emailsStore, totalBreachesStore } from './stores/stores.js'
 	color: #f3f3f3;
 	font-family:"Roboto";
 	min-height: 100vh;
+	}
+
+	#total-breaches {
+		padding-top: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	
 </style>

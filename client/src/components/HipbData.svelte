@@ -18,7 +18,7 @@ import { fade } from 'svelte/transition'
     const { open } = getContext('simple-modal');
 
     const showBreachInfo = (breach) => {
-        open(BreachInfo, { breach })
+        open(BreachInfo, { breach }, {styleWindow: {"background-color": "#282c34"}, styleContent: {"color" : "#f3f3f3"}},)
     }
 
     async function hibpQuery(email) {
@@ -56,42 +56,66 @@ import { fade } from 'svelte/transition'
 </script>
 
 {#if hibpdata.length === 0 && email.num_of_breaches !== 0}
-<div transition:fade class="loader"></div>
+
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
 {:else}
 <ul transition:fade>
     {#each hibpdata as breach}
-    <li>
-        <p class="breach" on:click={showBreachInfo(breach)}>{breach.Name} (Breached - {breach.BreachDate})</p>
+    <li class="breach" on:click={showBreachInfo(breach)}>
+        {breach.Name} (Breached - {breach.BreachDate})
     </li>
     {/each}
 </ul>
 {/if}
 
 <style>
+
+    li {
+        list-style-type: none;
+        font-family: "Signika";
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    .loader-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 2s linear infinite;
-}
+    margin-top: 2rem;
+    opacity: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 16px solid #676060;
+    border-top: 16px solid #ffd000d7;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-li {
-    list-style-type: none;
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .breach {
     transition: 0.15s ease-in-out;
+    display: flex;
+    /* align-items: center; */
+    margin: 0.5rem 0 0.5rem 0;
 }
 .breach:hover {
     transform: scale(1.05);
     transition: 0.15s ease-in-out;
-    background: linear-gradient(90deg,dodgerblue,#e52e71);
+    background: linear-gradient(270deg,white,orange);
     cursor: pointer;
     text-shadow: none;
     background-clip: text;
