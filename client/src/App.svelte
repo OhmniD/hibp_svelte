@@ -25,7 +25,6 @@ import { emailsStore } from './stores/stores.js'
 
 
 	emailsStore.subscribe(value => {
-		console.log(value);
 		emails = value;
 	});
 
