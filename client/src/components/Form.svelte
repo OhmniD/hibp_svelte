@@ -1,13 +1,19 @@
 <script>
+    import { emailsStore } from '../stores/stores.js'
+
     let email = ""
+
     const handleFormSubmit = async () => {
-        let update = await fetch(`http://localhost:8000/emails`, {
+        let addEmail = await fetch(`http://localhost:8000/emails`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({"email":email})
 		})
+        const data = await addEmail.json()
+        emailsStore.update(emails => [...emails, data])
+        email = ""
     };
 
 </script>

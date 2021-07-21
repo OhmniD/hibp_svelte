@@ -1,12 +1,14 @@
 <script>
 import { onMount } from 'svelte';
 import Modal from 'svelte-simple-modal';
+import { emailsStore } from './stores/stores.js'
 
 	import Emails from './components/Email.svelte'
 	import Form from './components/Form.svelte'
 
-	let emails = [];
 	let total_breaches = 0
+
+	let emails
 
 	async function getEmails() {
 		let response = await fetch('http://localhost:8000/emails');
@@ -17,9 +19,15 @@ import Modal from 'svelte-simple-modal';
 		emails = await response.json()
 
 		emails.map(email => total_breaches += email.num_of_breaches)
+
+		emailsStore.set(emails)
 	}
 
 
+	emailsStore.subscribe(value => {
+		console.log(value);
+		emails = value;
+	});
 
 	onMount(() => {
 		getEmails()
@@ -31,7 +39,7 @@ import Modal from 'svelte-simple-modal';
 	<Form />
 	<h3>Total breaches: {total_breaches}</h3>
 	<Modal>
-		<Emails emails={emails}/>
+		<Emails bind:emails={emails}/>
 	</Modal>
 	
 

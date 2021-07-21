@@ -1,5 +1,6 @@
 from flask import Blueprint, Flask, request, json, jsonify, redirect, Response
 import sys
+import json
 
 from models.email import Email
 import repositories.email_repository as email_repository
@@ -30,9 +31,8 @@ def create_email():
     email = request_data['email']
     email_record = Email(email)
 
-    email_repository.save(email_record)
-
-    return request_data
+    save = email_repository.save(email_record)
+    return json.dumps(save.__dict__)
 
 @emails_blueprint.route("/emails/<id>/delete", methods=["GET"])
 def delete_email(id):

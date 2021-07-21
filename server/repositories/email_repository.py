@@ -18,6 +18,7 @@ def save(email):
     result = run_sql(sql, values)
 
     email.id = result[0]['id']
+    return email
 
 def select_all():
     emails = []
