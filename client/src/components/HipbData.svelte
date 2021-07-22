@@ -61,13 +61,15 @@ import { fade } from 'svelte/transition'
     <div class="loader"></div>
 </div>
 {:else}
-<ul transition:fade>
-    {#each hibpdata as breach}
-    <li class="breach" on:click={showBreachInfo(breach)}>
-        {breach.Name} (Breached - {breach.BreachDate})
-    </li>
-    {/each}
-</ul>
+<div class="scrollable-area">
+    <ul transition:fade>
+        {#each hibpdata as breach}
+        <li class="breach" on:click={showBreachInfo(breach)}>
+            {breach.Name} (Breached - {breach.BreachDate})
+        </li>
+        {/each}
+    </ul>
+</div>
 {/if}
 
 <style>
@@ -79,6 +81,12 @@ import { fade } from 'svelte/transition'
 
     ul {
         padding: 0;
+    }
+
+    .scrollable-area {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 135px;
     }
 
     .loader-wrapper {
